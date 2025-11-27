@@ -1,24 +1,26 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-alpine
+# Use a working OpenJDK 17 image
+FROM openjdk:17.0.8-jdk-bullseye
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the Maven wrapper and project files
+# Copy Maven wrapper and project files
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
 
-# Copy the source code
+# Copy source code
 COPY src src
 
-# Make the Maven wrapper executable
+# Make Maven wrapper executable
 RUN chmod +x mvnw
 
-# Build the Spring Boot application
+# Build Spring Boot jar
 RUN ./mvnw clean package -DskipTests
 
-# Copy the jar to the root of the container
+# Copy the built jar
 RUN cp target/*.jar app.jar
 
-# Set the startup command
+# Expose port for Render
+EXPOSE 8080
+
+# Start the Spring Boot app
 CMD ["java", "-jar", "app.jar"]
