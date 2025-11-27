@@ -1,14 +1,19 @@
-# Use a lightweight OpenJDK 17 base image
-FROM eclipse-temurin:17-jdk-alpine
+# ---- Build Stage ----
+FROM eclipse-temurin:17-jdk-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy the JAR into the container
-COPY target/intCalc.jar app.jar
+COPY . .
 
-# Expose the port Spring Boot runs on
+RUN ./mvnw -Dmaven.test.skip=true package
+
+# ---- Run Stage ----
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
