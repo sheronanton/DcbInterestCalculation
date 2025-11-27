@@ -87,6 +87,8 @@
 	</dependencies>
 
 	<build>
+	    <finalName>intCalc</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
