@@ -33,7 +33,7 @@ import com.twad.interestCalculator.service.InterestCalculatorService.ResultEntry
 
 @CrossOrigin(origins = "http://localhost:5173") // Allow your React dev server
 @RestController
-@RequestMapping("/api/excel")
+@RequestMapping("/intCalc/api/excel")
 public class InterestController {
 
 

@@ -1,26 +1,14 @@
-# Use a working OpenJDK 17 image
-FROM openjdk:17.0.8-jdk-bullseye
+# Use a lightweight OpenJDK 17 base image
+FROM eclipse-temurin:17-jdk-alpine
 
+# Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and project files
-COPY mvnw pom.xml ./
-COPY .mvn .mvn
+# Copy the JAR into the container
+COPY target/interestCalculator-0.0.1-SNAPSHOT.jar app.jar
 
-# Copy source code
-COPY src src
-
-# Make Maven wrapper executable
-RUN chmod +x mvnw
-
-# Build Spring Boot jar
-RUN ./mvnw clean package -DskipTests
-
-# Copy the built jar
-RUN cp target/*.jar app.jar
-
-# Expose port for Render
+# Expose the port Spring Boot runs on
 EXPOSE 8080
 
-# Start the Spring Boot app
-CMD ["java", "-jar", "app.jar"]
+# Run the JAR
+ENTRYPOINT ["java", "-jar", "app.jar"]
