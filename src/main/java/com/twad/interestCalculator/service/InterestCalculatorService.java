@@ -9,9 +9,9 @@ import com.twad.interestCalculator.entity.DemandEntry;
 public class InterestCalculatorService {
 
 	public static class ResultEntry {
-	    public int month, year, demand, openingBalance, closingBalance, interest,overdueAmount;
+	    public int month, year, demand, openingBalance, closingBalance, interest,overdueAmount,runningInterest;
 
-	    public ResultEntry(int month, int year, int demand, int openingBalance, int closingBalance, int interest, int overdueAmount) {
+	    public ResultEntry(int month, int year, int demand, int openingBalance, int closingBalance, int interest, int overdueAmount, int runningInterest) {
 	        this.month = month;
 	        this.year = year;
 	        this.demand = demand;
@@ -19,6 +19,7 @@ public class InterestCalculatorService {
 	        this.closingBalance = closingBalance;
 	        this.interest = interest;
 	        this.overdueAmount = overdueAmount;
+	        this.runningInterest = runningInterest;
 	    }
 	}
 
@@ -30,6 +31,8 @@ public class InterestCalculatorService {
 	    int openingBalance = 0;
 	    int totalClosingBalance = 0;
 	    int totalInterest = 0;
+	    int runningInterest = 0;   // accumulated interest month by month
+
 
 	    int startMonth;
 	    double interestRate;
@@ -61,6 +64,9 @@ public class InterestCalculatorService {
 	            interest = (int) Math.round(overdueBalance * interestRate / 100.0);
 
 	        }
+	        
+	        runningInterest += interest;
+
 
 	        results.add(new ResultEntry(
 	            entry.getMonth(),
@@ -69,7 +75,8 @@ public class InterestCalculatorService {
 	            openingBalance,
 	            closingBalance,
 	            interest,
-	            overdueBalance
+	            overdueBalance,
+	            runningInterest     
 	        ));
 
 	        openingBalance = closingBalance;
