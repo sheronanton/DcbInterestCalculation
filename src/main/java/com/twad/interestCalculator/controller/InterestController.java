@@ -79,7 +79,7 @@ public class InterestController {
 
             // Create header row
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"Month", "Year", "Opening Balance", "Demand", "Overdue Amount", "Closing Balance", "Interest"};
+            String[] headers = {"Month", "Year", "Opening Balance", "Demand", "Overdue Amount", "WC Closing Balance", "Interest", "Int Closing Balance"};
             for (int i = 0; i < headers.length; i++) {
                 headerRow.createCell(i).setCellValue(headers[i]);
             }
@@ -95,6 +95,9 @@ public class InterestController {
                 row.createCell(4).setCellValue(entry.overdueAmount);
                 row.createCell(5).setCellValue(entry.closingBalance);
                 row.createCell(6).setCellValue(entry.interest);
+                row.createCell(7).setCellValue(entry.runningInterest); // fixed
+
+
             }
 
             // Add totals row
@@ -102,6 +105,7 @@ public class InterestController {
             totalsRow.createCell(0).setCellValue("TOTAL");
             totalsRow.createCell(5).setCellValue(interestResponse.totalClosingBalance);
             totalsRow.createCell(6).setCellValue(interestResponse.totalInterest);
+
 
             // Convert to byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
