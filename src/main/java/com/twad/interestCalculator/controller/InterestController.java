@@ -33,12 +33,12 @@ import com.twad.interestCalculator.service.InterestCalculatorService.ResultEntry
 
 @CrossOrigin(origins = "http://localhost:5173") // Allow your React dev server
 @RestController
-@RequestMapping("/intCalc/api/excel")
+@RequestMapping("/intCalc/api")
 public class InterestController {
 
 
     
-	@PostMapping("/upload")
+	@PostMapping("/excel/upload")
 	public ResponseEntity<InterestResponse> uploadAndCalculateInterest(
 	    @RequestParam("file") MultipartFile file,
 	    @RequestParam("mode") String mode // <--- receives toggle value from frontend
