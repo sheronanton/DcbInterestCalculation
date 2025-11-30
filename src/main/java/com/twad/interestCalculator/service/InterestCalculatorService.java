@@ -31,7 +31,7 @@ public class InterestCalculatorService {
 	    int openingBalance = 0;
 	    int totalClosingBalance = 0;
 	    int totalInterest = 0;
-	    int runningInterest = 0;   // accumulated interest month by month
+	    int runningInterest = 0;   
 
 
 	    int startMonth;
