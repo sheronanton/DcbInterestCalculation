@@ -72,7 +72,7 @@ public class InterestController {
     }
     
     
-    @PostMapping("/download")
+    @PostMapping("/excel/download")
     public ResponseEntity<byte[]> downloadExcel(@RequestBody InterestResponse interestResponse) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Interest Calculation");
